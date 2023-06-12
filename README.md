@@ -76,31 +76,29 @@ Create a Garden
 
 To create a garden, you will need to send a POST request to the /garden/ endpoint.
 
-http
-
+```http
 POST /garden/
+```
 
 The body of the request should contain the name and description of the garden. Here's an example:
 
-json
-
+```json
 {
     "name": "Garden 1",
     "description": "This is the description"
 }
+```
 
 Create a Garden with a Hardware Controller and Light
 
 You can also create a garden with an associated hardware controller and light device in a single operation. This is done by including hardwareController and hardwareDetails objects in the body of your POST request to /garden/.
 
-http
-
+```http
 POST /garden/
-
+```
 Here's an example:
 
-json
-
+```json
 {
     "name": "Garden 1",
     "description": "This is the description of the garden",
@@ -119,23 +117,22 @@ json
         }
     }
 }
-
+```
 Add a Light to an Existing Garden
 
 To add a light to an existing garden, you will need to send a POST request to the /garden/{gardenId}/hardware/light endpoint, replacing {gardenId} with the ID of the garden you want to add the light to.
 
-http
-
+```http
 POST /garden/{{gardenId}}/hardware/light
+```
 
 The body of the request should contain the details of the light:
 
-json
-
+```json
 {
     "port":1,
     "power":"10",
     "colour":"red",
     "name":"First Red Light"
 }
-
+```
