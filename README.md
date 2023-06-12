@@ -63,5 +63,5 @@ Run the Garden Service:
 After a successful build, you can run the Garden Service using the following command:
 
 ```bash
-java -jar target/plants-0.0.1-SNAPSHOT.jar
+java -jar target/garden-0.0.1-SNAPSHOT.jar
 ```
