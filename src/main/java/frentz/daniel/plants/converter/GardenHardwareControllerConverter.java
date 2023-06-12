@@ -1,7 +1,7 @@
 package frentz.daniel.plants.converter;
 
 import frentz.daniel.hardwareservice.client.model.HardwareController;
-import frentz.daniel.model.GardenHardwareController;
+import frentz.daniel.garden.model.GardenHardwareController;
 
 public interface GardenHardwareControllerConverter {
     GardenHardwareController toModel(long controllerId);

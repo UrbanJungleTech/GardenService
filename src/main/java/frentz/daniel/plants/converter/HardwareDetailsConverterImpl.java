@@ -1,7 +1,7 @@
 package frentz.daniel.plants.converter;
 
 import frentz.daniel.hardwareservice.client.model.Hardware;
-import frentz.daniel.model.*;
+import frentz.daniel.garden.model.*;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

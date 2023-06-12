@@ -1,8 +1,8 @@
 package frentz.daniel.plants.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import frentz.daniel.model.Garden;
-import frentz.daniel.model.Plant;
+import frentz.daniel.garden.model.Garden;
+import frentz.daniel.garden.model.Plant;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;

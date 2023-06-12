@@ -1,6 +1,6 @@
 package frentz.daniel.plants.converter;
 
-import frentz.daniel.model.Garden;
+import frentz.daniel.garden.model.Garden;
 import frentz.daniel.plants.entity.GardenEntity;
 
 import java.util.List;

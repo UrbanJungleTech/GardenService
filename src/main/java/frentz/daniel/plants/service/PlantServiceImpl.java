@@ -1,6 +1,6 @@
 package frentz.daniel.plants.service;
 
-import frentz.daniel.model.Plant;
+import frentz.daniel.garden.model.Plant;
 import frentz.daniel.plants.converter.PlantConverterImpl;
 import frentz.daniel.plants.repository.PlantRepository;
 import frentz.daniel.plants.entity.PlantEntity;

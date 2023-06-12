@@ -1,8 +1,8 @@
 package frentz.daniel.plants.controller;
 
+import frentz.daniel.garden.model.Garden;
+import frentz.daniel.garden.model.Plant;
 import frentz.daniel.hardwareservice.client.model.Sensor;
-import frentz.daniel.model.Garden;
-import frentz.daniel.model.Plant;
 import frentz.daniel.plants.service.GardenAdditionService;
 import frentz.daniel.plants.service.GardenService;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +26,7 @@ public class GardenEndpoint {
     }
 
     @PostMapping("/")
-    public Garden create( @RequestBody @Valid Garden garden){
+    public Garden create(@RequestBody @Valid Garden garden){
         return this.gardenAdditionService.addGarden(garden);
     }
 

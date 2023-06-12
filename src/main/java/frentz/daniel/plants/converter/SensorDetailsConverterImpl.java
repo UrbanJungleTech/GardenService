@@ -1,8 +1,8 @@
 package frentz.daniel.plants.converter;
 
 import frentz.daniel.hardwareservice.client.model.Sensor;
-import frentz.daniel.model.GardenSensor;
-import frentz.daniel.model.SensorDetails;
+import frentz.daniel.garden.model.GardenSensor;
+import frentz.daniel.garden.model.SensorDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

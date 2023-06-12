@@ -1,8 +1,8 @@
 package frentz.daniel.plants.converter;
 
 import frentz.daniel.hardwareservice.client.model.Hardware;
-import frentz.daniel.model.GardenHardware;
-import frentz.daniel.model.Heater;
+import frentz.daniel.garden.model.GardenHardware;
+import frentz.daniel.garden.model.Heater;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

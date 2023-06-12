@@ -2,10 +2,10 @@ package frentz.daniel.plants.service;
 
 import frentz.daniel.hardwareservice.client.model.HardwareController;
 import frentz.daniel.hardwareservice.client.model.Sensor;
-import frentz.daniel.model.GardenHardwareController;
-import frentz.daniel.model.Heater;
-import frentz.daniel.model.Light;
-import frentz.daniel.model.Water;
+import frentz.daniel.garden.model.GardenHardwareController;
+import frentz.daniel.garden.model.Heater;
+import frentz.daniel.garden.model.Light;
+import frentz.daniel.garden.model.Water;
 
 public interface HardwareControllerService {
     HardwareController createHardwareController(GardenHardwareController gardenHardwareController);

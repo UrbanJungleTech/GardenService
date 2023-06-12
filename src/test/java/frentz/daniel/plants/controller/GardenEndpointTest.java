@@ -1,7 +1,7 @@
 package frentz.daniel.plants.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import frentz.daniel.model.Garden;
+import frentz.daniel.garden.model.Garden;
 import frentz.daniel.plants.service.GardenService;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;

@@ -4,9 +4,9 @@ import frentz.daniel.hardwareservice.client.model.Hardware;
 import frentz.daniel.hardwareservice.client.model.HardwareController;
 import frentz.daniel.hardwareservice.client.model.Sensor;
 import frentz.daniel.hardwareservice.client.service.HardwareClient;
-import frentz.daniel.model.GardenHardwareController;
-import frentz.daniel.model.HardwareDetails;
-import frentz.daniel.model.SensorDetails;
+import frentz.daniel.garden.model.GardenHardwareController;
+import frentz.daniel.garden.model.HardwareDetails;
+import frentz.daniel.garden.model.SensorDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

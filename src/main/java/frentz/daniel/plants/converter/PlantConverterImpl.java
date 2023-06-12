@@ -1,6 +1,6 @@
 package frentz.daniel.plants.converter;
 
-import frentz.daniel.model.Plant;
+import frentz.daniel.garden.model.Plant;
 import frentz.daniel.plants.entity.GardenEntity;
 import frentz.daniel.plants.entity.PlantEntity;
 import org.springframework.stereotype.Service;

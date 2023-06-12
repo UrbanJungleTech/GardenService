@@ -1,13 +1,13 @@
 package frentz.daniel.plants.service;
 
+import frentz.daniel.garden.model.GardenHardwareController;
+import frentz.daniel.garden.model.Heater;
+import frentz.daniel.garden.model.Light;
+import frentz.daniel.garden.model.Water;
 import frentz.daniel.hardwareservice.client.model.Hardware;
 import frentz.daniel.hardwareservice.client.model.HardwareController;
 import frentz.daniel.hardwareservice.client.model.Sensor;
 import frentz.daniel.hardwareservice.client.service.HardwareClient;
-import frentz.daniel.model.GardenHardwareController;
-import frentz.daniel.model.Heater;
-import frentz.daniel.model.Light;
-import frentz.daniel.model.Water;
 import frentz.daniel.plants.converter.GardenHardwareControllerConverter;
 import frentz.daniel.plants.converter.GardenHardwareConverter;
 import org.springframework.stereotype.Service;

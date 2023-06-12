@@ -1,6 +1,6 @@
 package frentz.daniel.plants.controller;
 
-import frentz.daniel.model.Plant;
+import frentz.daniel.garden.model.Plant;
 import frentz.daniel.plants.service.GardenService;
 import frentz.daniel.plants.service.PlantService;
 import org.springframework.http.ResponseEntity;

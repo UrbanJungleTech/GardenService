@@ -1,9 +1,10 @@
 package frentz.daniel.plants.service;
 
+import frentz.daniel.garden.model.*;
 import frentz.daniel.hardwareservice.client.model.HardwareController;
 import frentz.daniel.hardwareservice.client.model.HardwareState;
 import frentz.daniel.hardwareservice.client.model.Sensor;
-import frentz.daniel.model.*;
+import frentz.daniel.garden.model.*;
 import frentz.daniel.plants.converter.GardenConverter;
 import frentz.daniel.plants.converter.GardenHardwareControllerConverter;
 import frentz.daniel.plants.entity.GardenEntity;
@@ -11,8 +12,8 @@ import frentz.daniel.plants.entity.PlantEntity;
 import frentz.daniel.plants.exception.NotFoundException;
 import frentz.daniel.plants.repository.GardenRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service()

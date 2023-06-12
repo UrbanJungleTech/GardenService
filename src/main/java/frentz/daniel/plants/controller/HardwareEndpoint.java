@@ -1,10 +1,10 @@
 package frentz.daniel.plants.controller;
 
 import frentz.daniel.hardwareservice.client.model.HardwareState;
-import frentz.daniel.model.Garden;
-import frentz.daniel.model.Heater;
-import frentz.daniel.model.Light;
-import frentz.daniel.model.Water;
+import frentz.daniel.garden.model.Garden;
+import frentz.daniel.garden.model.Heater;
+import frentz.daniel.garden.model.Light;
+import frentz.daniel.garden.model.Water;
 import frentz.daniel.plants.service.GardenService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

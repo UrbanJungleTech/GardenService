@@ -1,8 +1,8 @@
 package frentz.daniel.plants.converter;
 
+import frentz.daniel.garden.model.Garden;
+import frentz.daniel.garden.model.GardenHardwareController;
 import frentz.daniel.hardwareservice.client.service.HardwareClient;
-import frentz.daniel.model.Garden;
-import frentz.daniel.model.GardenHardwareController;
 import frentz.daniel.plants.entity.GardenEntity;
 import org.springframework.stereotype.Service;
 

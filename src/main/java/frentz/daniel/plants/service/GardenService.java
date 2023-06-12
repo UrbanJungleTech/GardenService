@@ -1,8 +1,8 @@
 package frentz.daniel.plants.service;
 
+import frentz.daniel.garden.model.*;
 import frentz.daniel.hardwareservice.client.model.HardwareState;
 import frentz.daniel.hardwareservice.client.model.Sensor;
-import frentz.daniel.model.*;
 
 import java.util.List;
 
