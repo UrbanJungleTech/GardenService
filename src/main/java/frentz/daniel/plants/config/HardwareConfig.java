@@ -1,11 +1,11 @@
 package frentz.daniel.plants.config;
 
+import frentz.daniel.controllerclient.service.HardwareClient;
+import frentz.daniel.controllerclient.service.HardwareClientImpl;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
-import service.HardwareClient;
-import service.HardwareClientImpl;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -20,7 +20,7 @@ public class HardwareConfig {
 
     @Bean
     HardwareClient hardwareClient(RestTemplate restTemplate) throws URISyntaxException {
-        URI uri = new URI(scheme + "://" + host + ":" + port + "/hardwarecontroller/");
+        URI uri = new URI(scheme + "://" + host + ":" + port + "/");
         HardwareClient result = new HardwareClientImpl(uri, restTemplate);
         return result;
     }

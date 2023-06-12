@@ -1,10 +1,10 @@
 package frentz.daniel.plants.converter;
 
-import frentz.daniel.controllerclient.model.HardwareController;
+import frentz.daniel.controllerclient.service.HardwareClient;
+import frentz.daniel.model.Garden;
+import frentz.daniel.model.GardenHardwareController;
 import frentz.daniel.plants.entity.GardenEntity;
-import frentz.daniel.plants.model.Garden;
 import org.springframework.stereotype.Service;
-import service.HardwareClient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,10 +15,14 @@ public class GardenConverterImpl implements GardenConverter{
 
     private PlantConverter plantConverter;
     private HardwareClient hardwareClient;
+    private GardenHardwareControllerConverter gardenHardwareControllerConverter;
 
-    public GardenConverterImpl(PlantConverter plantConverter, HardwareClient hardwareClient){
+    public GardenConverterImpl(PlantConverter plantConverter,
+                               HardwareClient hardwareClient,
+                               GardenHardwareControllerConverter gardenHardwareControllerConverter){
         this.plantConverter = plantConverter;
         this.hardwareClient = hardwareClient;
+        this.gardenHardwareControllerConverter = gardenHardwareControllerConverter;
     }
 
     @Override
@@ -28,9 +32,11 @@ public class GardenConverterImpl implements GardenConverter{
         result.setName(gardenEntity.getName());
         result.setDescription(gardenEntity.getDescription());
         result.setPlants(plantConverter.toModels(gardenEntity.getPlants()));
-        if(gardenEntity.getControllerId() != null) {
-            result.setHardwareController(this.hardwareClient.getHardwareController(gardenEntity.getControllerId()));
+        if (gardenEntity.getControllerId() != 0) {
+            GardenHardwareController gardenHardwareController = this.gardenHardwareControllerConverter.toModel(gardenEntity.getControllerId());
+            result.setHardwareController(gardenHardwareController);
         }
+
         return result;
     }
 

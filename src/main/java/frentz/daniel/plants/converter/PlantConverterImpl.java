@@ -1,12 +1,10 @@
 package frentz.daniel.plants.converter;
 
-import frentz.daniel.plants.dao.GardenRepository;
+import frentz.daniel.model.Plant;
 import frentz.daniel.plants.entity.GardenEntity;
 import frentz.daniel.plants.entity.PlantEntity;
-import frentz.daniel.plants.model.Plant;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 

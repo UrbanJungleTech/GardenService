@@ -1,4 +1,4 @@
-package frentz.daniel.plants.controller;
+package frentz.daniel.plants.exception;
 
 import frentz.daniel.plants.errorResponse.ErrorResponse;
 import frentz.daniel.plants.exception.NotFoundException;

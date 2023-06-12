@@ -1,7 +1,7 @@
 package frentz.daniel.plants.converter;
 
+import frentz.daniel.model.Plant;
 import frentz.daniel.plants.entity.PlantEntity;
-import frentz.daniel.plants.model.Plant;
 
 import java.util.List;
 

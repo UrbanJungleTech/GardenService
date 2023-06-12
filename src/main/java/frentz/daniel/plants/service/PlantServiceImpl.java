@@ -1,10 +1,10 @@
 package frentz.daniel.plants.service;
 
+import frentz.daniel.model.Plant;
 import frentz.daniel.plants.converter.PlantConverterImpl;
-import frentz.daniel.plants.dao.PlantRepository;
+import frentz.daniel.plants.repository.PlantRepository;
 import frentz.daniel.plants.entity.PlantEntity;
 import frentz.daniel.plants.exception.NotFoundException;
-import frentz.daniel.plants.model.Plant;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -27,14 +27,12 @@ public class PlantServiceImpl implements PlantService{
     }
 
     @Override
-    public PlantEntity createAndSavePlant(Plant plant) {
+    public PlantEntity create(Plant plant) {
         this.createPlant(plant);
         PlantEntity plantEntity = new PlantEntity();
         plantEntity.setName(plant.getName());
         plantEntity.setSpecies(plant.getSpecies());
         plantEntity.setCreated(LocalDateTime.now());
-        plantEntity = this.plantRepository.save(plantEntity);
-        plant.setId(plantEntity.getId());
         return plantEntity;
     }
 
@@ -73,5 +71,10 @@ public class PlantServiceImpl implements PlantService{
     @Override
     public void deletePlant(long plantId) {
         this.plantRepository.deleteById(plantId);
+    }
+
+    @Override
+    public void save(PlantEntity plantEntity) {
+        this.plantRepository.save(plantEntity);
     }
 }

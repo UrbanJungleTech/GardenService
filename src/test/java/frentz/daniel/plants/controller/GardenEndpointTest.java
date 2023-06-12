@@ -1,14 +1,13 @@
 package frentz.daniel.plants.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import frentz.daniel.plants.model.Garden;
+import frentz.daniel.model.Garden;
 import frentz.daniel.plants.service.GardenService;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.internal.matchers.Any;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -20,18 +19,18 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @SpringBootTest
-public class GardenControllerTest {
+public class GardenEndpointTest {
 
     @Mock
     GardenService gardenService;
 
     @InjectMocks
-    private GardenController gardenController;
+    private GardenEndpoint gardenEndpoint;
 
     @Test
     public void testGardenControllerNameRequired(){
         try {
-            MockMvc mockMvc = MockMvcBuilders.standaloneSetup(this.gardenController).build();
+            MockMvc mockMvc = MockMvcBuilders.standaloneSetup(this.gardenEndpoint).build();
             Garden requestBody = this.setupBasicGarden();
             requestBody.setName(null);
             String gardenJson = this.gardenToJson(requestBody);
@@ -48,10 +47,10 @@ public class GardenControllerTest {
     @Test
     public void testCreatesId(){
         try {
-            MockMvc mockMvc = MockMvcBuilders.standaloneSetup(this.gardenController).build();
+            MockMvc mockMvc = MockMvcBuilders.standaloneSetup(this.gardenEndpoint).build();
             Garden responseGarden = this.setupBasicGarden();
             responseGarden.setId(1L);
-            Mockito.when(this.gardenService.createAndSaveGarden(any())).thenReturn(responseGarden);
+            Mockito.when(this.gardenService.create(any())).thenReturn(responseGarden);
             String requestJson = this.gardenToJson(this.setupBasicGarden());
             mockMvc.perform(MockMvcRequestBuilders.post("/garden/")
                     .contentType(MediaType.APPLICATION_JSON)

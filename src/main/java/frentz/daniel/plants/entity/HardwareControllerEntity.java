@@ -1,17 +1,15 @@
 package frentz.daniel.plants.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class HardwareControllerEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    //this is the remote id.
     private long controllerId;
+    @OneToOne
+    private HardwareDetailsEntity lightDetails;
 
     public long getId() {
         return id;
@@ -27,5 +25,13 @@ public class HardwareControllerEntity {
 
     public void setControllerId(long controllerId) {
         this.controllerId = controllerId;
+    }
+
+    public HardwareDetailsEntity getLightDetails() {
+        return lightDetails;
+    }
+
+    public void setLightDetails(HardwareDetailsEntity lightDetails) {
+        this.lightDetails = lightDetails;
     }
 }

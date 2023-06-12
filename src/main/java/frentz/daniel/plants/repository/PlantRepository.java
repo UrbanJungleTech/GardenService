@@ -1,4 +1,4 @@
-package frentz.daniel.plants.dao;
+package frentz.daniel.plants.repository;
 
 import frentz.daniel.plants.entity.PlantEntity;
 import org.springframework.data.jpa.repository.JpaRepository;

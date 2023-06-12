@@ -1,8 +1,6 @@
 package frentz.daniel.plants.entity;
 
 
-import frentz.daniel.controllerclient.model.HardwareController;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +20,7 @@ public class GardenEntity {
     private String description;
     @OneToMany(mappedBy = "garden", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<PlantEntity> plants;
-    private Long controllerId;
+    private long controllerId;
 
 
     public void addPlant(PlantEntity plantEntity){
@@ -57,12 +55,11 @@ public class GardenEntity {
         this.description = description;
     }
 
-
-    public Long getControllerId() {
+    public long getControllerId() {
         return controllerId;
     }
 
-    public void setControllerId(Long controllerId) {
+    public void setControllerId(long controllerId) {
         this.controllerId = controllerId;
     }
 }

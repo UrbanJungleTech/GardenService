@@ -1,21 +1,20 @@
 package frentz.daniel.plants.service;
 
 import frentz.daniel.controllerclient.model.HardwareController;
+import frentz.daniel.controllerclient.model.HardwareState;
+import frentz.daniel.controllerclient.model.Sensor;
+import frentz.daniel.controllerclient.model.SensorType;
+import frentz.daniel.model.*;
 import frentz.daniel.plants.converter.GardenConverter;
-import frentz.daniel.plants.dao.GardenRepository;
-import frentz.daniel.plants.dao.PlantRepository;
+import frentz.daniel.plants.converter.GardenHardwareControllerConverter;
 import frentz.daniel.plants.entity.GardenEntity;
 import frentz.daniel.plants.entity.PlantEntity;
 import frentz.daniel.plants.exception.NotFoundException;
-import frentz.daniel.plants.model.Garden;
-import frentz.daniel.plants.model.Plant;
+import frentz.daniel.plants.repository.GardenRepository;
 import org.springframework.stereotype.Service;
-import service.HardwareClient;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service()
 public class GardenServiceImpl implements GardenService {
@@ -23,19 +22,25 @@ public class GardenServiceImpl implements GardenService {
     private GardenRepository gardenRepository;
     private GardenConverter gardenConverter;
     private PlantService plantService;
-    private PlantRepository plantRepository;
-    private HardwareClient hardwareClient;
+    private GardenHardwareControllerConverter gardenHardwareControllerConverter;
+    private HardwareControllerService hardwareControllerService;
+    private HardwareService hardwareService;
+    private SensorService sensorService;
 
     public GardenServiceImpl(GardenRepository gardenRepository,
                              GardenConverter gardenConverter,
                              PlantService plantService,
-                             PlantRepository plantRepository,
-                             HardwareClient hardwareClient){
+                             HardwareControllerService hardwareControllerService,
+                             GardenHardwareControllerConverter gardenHardwareControllerConverter,
+                             HardwareService hardwareService,
+                             SensorService sensorService){
         this.gardenRepository = gardenRepository;
         this.gardenConverter = gardenConverter;
         this.plantService = plantService;
-        this.plantRepository = plantRepository;
-        this.hardwareClient = hardwareClient;
+        this.gardenHardwareControllerConverter = gardenHardwareControllerConverter;
+        this.hardwareControllerService = hardwareControllerService;
+        this.hardwareService = hardwareService;
+        this.sensorService = sensorService;
     }
 
     @Override
@@ -46,31 +51,29 @@ public class GardenServiceImpl implements GardenService {
     }
 
     @Override
-    public Garden createAndSaveGarden(Garden garden) {
+    public Garden create(Garden garden) {
         GardenEntity gardenEntity = new GardenEntity();
         gardenEntity.setName(garden.getName());
         gardenEntity.setDescription(garden.getDescription());
         for(Plant plant : garden.getPlants()){
-            PlantEntity plantEntity = this.plantService.createAndSavePlant(plant);
+            PlantEntity plantEntity = this.plantService.create(plant);
             gardenEntity.getPlants().add(plantEntity);
             plantEntity.setGarden(gardenEntity);
+            this.plantService.save(plantEntity);
         }
-        garden.setHardwareController(this.hardwareClient.createHardwareController(garden.getHardwareController()));
-        gardenEntity.setControllerId(garden.getHardwareController().getId());
+        if(garden.getHardwareController() != null) {
+            HardwareController hardwareController = this.hardwareControllerService.createHardwareController(garden.getHardwareController());
+            gardenEntity.setControllerId(hardwareController.getId());
+        }
         gardenEntity = this.gardenRepository.save(gardenEntity);
         Garden result = this.gardenConverter.toModel(gardenEntity, true);
-
-
         return result;
     }
 
     @Override
-    public Garden getGarden(long id) {
-        Optional<GardenEntity> gardenEntity = this.gardenRepository.findById(id);
-        if(!gardenEntity.isPresent()){
-            throw new NotFoundException(Garden.class, id);
-        }
-        return this.gardenConverter.toModel(gardenEntity.get(), true);
+    public Garden getGarden(long gardenId) {
+        GardenEntity gardenEntity = this.gardenRepository.findById(gardenId).orElseThrow(() -> new NotFoundException(Garden.class, gardenId));
+        return this.gardenConverter.toModel(gardenEntity, true);
     }
 
     @Override
@@ -80,31 +83,72 @@ public class GardenServiceImpl implements GardenService {
     }
 
     @Override
-    public void addPlant(long gardenId, Plant plant) {
-        PlantEntity plantEntity = this.plantService.createAndSavePlant(plant);
-        GardenEntity gardenEntity = this.gardenRepository.getOne(gardenId);
+    public Garden addPlant(long gardenId, Plant plant) {
+        PlantEntity plantEntity = this.plantService.create(plant);
+        GardenEntity gardenEntity = this.gardenRepository.findById(gardenId).orElseThrow(() -> new NotFoundException(Garden.class, gardenId));
         plantEntity.setGarden(gardenEntity);
-        this.plantRepository.save(plantEntity);
+        this.plantService.save(plantEntity);
+        return this.gardenConverter.toModel(gardenEntity, true);
     }
 
     @Override
     @Transactional
     public Garden removePlant(long gardenId, long plantId) {
-        PlantEntity plantEntity = this.plantRepository.getOne(plantId);
-        if(plantEntity.getGarden().getId() != gardenId){
-            throw new NotFoundException(Plant.class, plantId);
-        }
-        plantRepository.deleteById(plantId);
-        GardenEntity gardenEntity = this.gardenRepository.findById(gardenId).orElseGet(null);
-        gardenEntity.getPlants().removeIf((PlantEntity plant) -> {
+        this.plantService.deletePlant(plantId);
+        GardenEntity gardenEntity = this.gardenRepository.findById(gardenId).orElseThrow(() -> new NotFoundException(Garden.class, gardenId));
+        gardenEntity.getPlants().removeIf((plant) -> {
             return plant.getId() == plantId;
         });
         this.gardenRepository.save(gardenEntity);
-        return gardenConverter.toModel(gardenEntity, true);
+        return this.gardenConverter.toModel(gardenEntity, true);
     }
 
     @Override
     public void deleteGarden(long gardenId) {
         this.gardenRepository.deleteById(gardenId);
+    }
+
+    @Override
+    public Garden addLight(long gardenId, Light light) {
+        GardenEntity gardenEntity = this.gardenRepository.findById(gardenId).orElseThrow(() -> new NotFoundException(Garden.class, gardenId));
+        this.hardwareControllerService.createLight(gardenEntity.getControllerId(), light);
+        gardenEntity = this.gardenRepository.getOne(gardenId);
+        return this.gardenConverter.toModel(gardenEntity, true);
+    }
+
+    @Override
+    public Garden addWater(long gardenId, Water water) {
+        GardenEntity gardenEntity = this.gardenRepository.findById(gardenId).orElseThrow(() -> new NotFoundException(Garden.class, gardenId));
+        this.hardwareControllerService.createWater(gardenEntity.getControllerId(), water);
+        gardenEntity = this.gardenRepository.getOne(gardenId);
+        return this.gardenConverter.toModel(gardenEntity, true);
+    }
+
+    @Override
+    public Garden addHeater(long gardenId, Heater heater) {
+        GardenEntity gardenEntity = this.gardenRepository.findById(gardenId).orElseThrow(() -> new NotFoundException(Garden.class, gardenId));
+        this.hardwareControllerService.createHeater(gardenEntity.getControllerId(), heater);
+        gardenEntity = this.gardenRepository.getOne(gardenId);
+        return this.gardenConverter.toModel(gardenEntity, true);
+    }
+
+    @Override
+    public Garden setHardwareState(long gardenId, long hardwareId, HardwareState hardwareState) {
+        this.hardwareService.setHardwareState(hardwareId, hardwareState);
+        return this.getGarden(gardenId);
+    }
+
+    @Override
+    public double readAverageSensor(long gardenId, SensorType sensorType) {
+        Garden garden = this.getGarden(gardenId);
+        return this.sensorService.readAverageSensor(garden.getHardwareController().getId(), sensorType);
+    }
+
+    @Override
+    public Garden addSensor(long gardenId, Sensor sensor) {
+        GardenEntity gardenEntity = this.gardenRepository.findById(gardenId).orElseThrow(() -> new NotFoundException(Garden.class, gardenId));
+        this.hardwareControllerService.createSensor(gardenEntity.getControllerId(), sensor);
+        gardenEntity = this.gardenRepository.getById(gardenId);
+        return this.gardenConverter.toModel(gardenEntity, true);
     }
 }
