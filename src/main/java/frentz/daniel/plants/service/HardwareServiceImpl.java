@@ -1,8 +1,8 @@
 package frentz.daniel.plants.service;
 
-import frentz.daniel.controllerclient.model.Hardware;
-import frentz.daniel.controllerclient.model.HardwareState;
-import frentz.daniel.controllerclient.service.HardwareClient;
+import frentz.daniel.hardwareservice.client.model.Hardware;
+import frentz.daniel.hardwareservice.client.model.HardwareState;
+import frentz.daniel.hardwareservice.client.service.HardwareClient;
 import org.springframework.stereotype.Service;
 
 @Service

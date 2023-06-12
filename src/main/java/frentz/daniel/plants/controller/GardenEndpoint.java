@@ -1,7 +1,6 @@
 package frentz.daniel.plants.controller;
 
-import frentz.daniel.controllerclient.model.Sensor;
-import frentz.daniel.controllerclient.model.SensorType;
+import frentz.daniel.hardwareservice.client.model.Sensor;
 import frentz.daniel.model.Garden;
 import frentz.daniel.model.Plant;
 import frentz.daniel.plants.service.GardenAdditionService;
@@ -13,6 +12,7 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import javax.validation.Valid;
 import java.util.List;
 
+@RestController()
 @RequestMapping("/garden")
 public class GardenEndpoint {
 
@@ -66,7 +66,7 @@ public class GardenEndpoint {
     }
 
     @GetMapping("/{gardenId}/averagesensor/{sensorType}")
-    public ResponseEntity<Double> readAverageSensor(@PathVariable("gardenId") long gardenId, @PathVariable("sensorType") SensorType sensorType){
+    public ResponseEntity<Double> readAverageSensor(@PathVariable("gardenId") long gardenId, @PathVariable("sensorType")String sensorType){
         double result = this.gardenService.readAverageSensor(gardenId, sensorType);
         return ResponseEntity.ok(result);
     }

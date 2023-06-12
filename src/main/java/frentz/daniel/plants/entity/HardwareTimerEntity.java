@@ -1,10 +1,8 @@
 package frentz.daniel.plants.entity;
 
-import frentz.daniel.controllerclient.model.Timer;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.util.List;
 
 @Entity
 public class HardwareTimerEntity {

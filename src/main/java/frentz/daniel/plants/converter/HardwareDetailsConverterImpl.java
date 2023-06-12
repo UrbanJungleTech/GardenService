@@ -1,6 +1,6 @@
 package frentz.daniel.plants.converter;
 
-import frentz.daniel.controllerclient.model.Hardware;
+import frentz.daniel.hardwareservice.client.model.Hardware;
 import frentz.daniel.model.*;
 import org.springframework.stereotype.Service;
 

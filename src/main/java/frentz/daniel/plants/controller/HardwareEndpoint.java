@@ -1,6 +1,6 @@
 package frentz.daniel.plants.controller;
 
-import frentz.daniel.controllerclient.model.HardwareState;
+import frentz.daniel.hardwareservice.client.model.HardwareState;
 import frentz.daniel.model.Garden;
 import frentz.daniel.model.Heater;
 import frentz.daniel.model.Light;
@@ -9,7 +9,8 @@ import frentz.daniel.plants.service.GardenService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RequestMapping("/garden/{gardenId}/hardware/")
+@RestController
+@RequestMapping("/garden/{gardenId}/hardware")
 public class HardwareEndpoint {
     private GardenService gardenService;
 

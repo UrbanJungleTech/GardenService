@@ -1,8 +1,7 @@
 package frentz.daniel.plants.service;
 
-import frentz.daniel.controllerclient.model.HardwareState;
-import frentz.daniel.controllerclient.model.Sensor;
-import frentz.daniel.controllerclient.model.SensorType;
+import frentz.daniel.hardwareservice.client.model.HardwareState;
+import frentz.daniel.hardwareservice.client.model.Sensor;
 import frentz.daniel.model.*;
 
 import java.util.List;
@@ -19,6 +18,6 @@ public interface GardenService {
     Garden addWater(long gardenId, Water water);
     Garden addHeater(long gardenId, Heater heater);
     Garden setHardwareState(long gardenId, long hardwareId, HardwareState hardwareState);
-    double readAverageSensor(long gardenId, SensorType sensorType);
+    double readAverageSensor(long gardenId,String sensorType);
     Garden addSensor(long gardenId, Sensor sensor);
 }

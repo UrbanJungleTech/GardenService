@@ -1,9 +1,8 @@
 package frentz.daniel.plants.service;
 
-import frentz.daniel.controllerclient.model.HardwareController;
-import frentz.daniel.controllerclient.model.HardwareState;
-import frentz.daniel.controllerclient.model.Sensor;
-import frentz.daniel.controllerclient.model.SensorType;
+import frentz.daniel.hardwareservice.client.model.HardwareController;
+import frentz.daniel.hardwareservice.client.model.HardwareState;
+import frentz.daniel.hardwareservice.client.model.Sensor;
 import frentz.daniel.model.*;
 import frentz.daniel.plants.converter.GardenConverter;
 import frentz.daniel.plants.converter.GardenHardwareControllerConverter;
@@ -139,7 +138,7 @@ public class GardenServiceImpl implements GardenService {
     }
 
     @Override
-    public double readAverageSensor(long gardenId, SensorType sensorType) {
+    public double readAverageSensor(long gardenId,String sensorType) {
         Garden garden = this.getGarden(gardenId);
         return this.sensorService.readAverageSensor(garden.getHardwareController().getId(), sensorType);
     }

@@ -1,7 +1,7 @@
 package frentz.daniel.plants.service;
 
-import frentz.daniel.controllerclient.model.HardwareController;
-import frentz.daniel.controllerclient.model.Sensor;
+import frentz.daniel.hardwareservice.client.model.HardwareController;
+import frentz.daniel.hardwareservice.client.model.Sensor;
 import frentz.daniel.model.GardenHardwareController;
 import frentz.daniel.model.Heater;
 import frentz.daniel.model.Light;

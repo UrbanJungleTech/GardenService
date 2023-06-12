@@ -1,12 +1,12 @@
 package frentz.daniel.plants.controller;
 
-import frentz.daniel.controllerclient.model.Sensor;
-import frentz.daniel.controllerclient.model.SensorType;
-import frentz.daniel.model.Garden;
 import frentz.daniel.plants.service.GardenService;
 import frentz.daniel.plants.service.SensorService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/sensor")

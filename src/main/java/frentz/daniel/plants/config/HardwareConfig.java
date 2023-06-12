@@ -1,7 +1,7 @@
 package frentz.daniel.plants.config;
 
-import frentz.daniel.controllerclient.service.HardwareClient;
-import frentz.daniel.controllerclient.service.HardwareClientImpl;
+import frentz.daniel.hardwareservice.client.service.HardwareClient;
+import frentz.daniel.hardwareservice.client.service.HardwareClientImpl;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

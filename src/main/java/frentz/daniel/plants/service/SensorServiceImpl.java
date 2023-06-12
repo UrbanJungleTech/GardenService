@@ -1,7 +1,6 @@
 package frentz.daniel.plants.service;
 
-import frentz.daniel.controllerclient.model.SensorType;
-import frentz.daniel.controllerclient.service.HardwareClient;
+import frentz.daniel.hardwareservice.client.service.HardwareClient;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,7 +18,7 @@ public class SensorServiceImpl implements SensorService{
     }
 
     @Override
-    public double readAverageSensor(long hardwareControllerId, SensorType sensorType) {
+    public double readAverageSensor(long hardwareControllerId,String sensorType) {
         return this.hardwareClient.readAverageSensor(hardwareControllerId, sensorType);
     }
 }

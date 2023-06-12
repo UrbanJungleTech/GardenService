@@ -1,6 +1,6 @@
 package frentz.daniel.plants.converter;
 
-import frentz.daniel.controllerclient.model.Sensor;
+import frentz.daniel.hardwareservice.client.model.Sensor;
 import frentz.daniel.model.SensorDetails;
 
 import java.util.List;

@@ -1,6 +1,6 @@
 package frentz.daniel.plants.converter;
 
-import frentz.daniel.controllerclient.model.Sensor;
+import frentz.daniel.hardwareservice.client.model.Sensor;
 import frentz.daniel.model.GardenSensor;
 import frentz.daniel.model.SensorDetails;
 import org.springframework.stereotype.Service;
@@ -23,10 +23,10 @@ public class SensorDetailsConverterImpl implements SensorDetailsConverter{
         for(Sensor sensor : sensors){
             GardenSensor gardenSensor = this.sensorConverter.toGardenSensor(sensor);
             switch(sensor.getSensorType()){
-                case MOISTURE:
+                case "moisture":
                     result.addMoisture(gardenSensor);
                     break;
-                case TEMPERATURE:
+                case "temperature":
                     result.addTemperature(gardenSensor);
                     break;
             }
