@@ -68,6 +68,7 @@ After a successful build, you can run the Garden Service using the following com
 java -jar target/garden-0.0.1-SNAPSHOT.jar
 ```
 
+Additionally you will need to ensure that the hardware service is also running, you can find more details here: https://github.com/UrbanJungleTech/HardwareService
 
 ## Usage examples
 
