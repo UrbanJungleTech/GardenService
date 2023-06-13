@@ -26,31 +26,27 @@ public class GardenAdditionServiceImpl implements GardenAdditionService{
     @Override
     public Garden addGarden(Garden garden) {
         Garden result = this.gardenService.create(garden);
-        this.sendToSubscribers(result, "gardenAdded");
+//        this.sendToSubscribers(result, "gardenAdded");
         return result;
     }
 
     private void sendToSubscribers(Object data, String topic) {
-        try {
-        String json = this.objectMapper.writeValueAsString(data);
-        SseEmitter.SseEventBuilder event = SseEmitter.event()
-                .data(json, MediaType.APPLICATION_JSON)
-                .name(topic);
-        for(SseEmitter subscriber : this.subscribers) {
-                subscriber.send(event);
-            }
-        }
-        catch (Exception ex){
-            ex.printStackTrace();
-        }
+//        String json = this.objectMapper.writeValueAsString(data);
+//        SseEmitter.SseEventBuilder event = SseEmitter.event()
+//                .data(json, MediaType.APPLICATION_JSON)
+//                .name(topic);
+//        for(SseEmitter subscriber : this.subscribers) {
+//                subscriber.send(event);
+//            }
+//        }
     }
 
     @Override
     public void addSubscriber(SseEmitter sseEmitter) {
-        this.subscribers.add(sseEmitter);
-        sseEmitter.onCompletion(() -> {
-            this.subscribers.remove(sseEmitter);
-        });
+//        this.subscribers.add(sseEmitter);
+//        sseEmitter.onCompletion(() -> {
+//            this.subscribers.remove(sseEmitter);
+//        });
     }
 
     @Override
@@ -58,13 +54,6 @@ public class GardenAdditionServiceImpl implements GardenAdditionService{
         Plant result = this.gardenService.addPlant(gardenId, plant);
         //this.sendToSubscribers(garden, "plantAdded");
         return result;
-    }
-
-    @Override
-    public Garden removePlant(long gardenId, long plantId) {
-        Garden garden = this.gardenService.removePlant(gardenId, plantId);
-        this.sendToSubscribers(garden, "plantRemoved");
-        return garden;
     }
 
     @Override

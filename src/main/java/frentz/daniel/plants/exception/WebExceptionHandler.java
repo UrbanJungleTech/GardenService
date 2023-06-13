@@ -13,6 +13,7 @@ public class WebExceptionHandler {
     @ExceptionHandler(NotFoundException.class)
     @ResponseStatus(value= HttpStatus.NOT_FOUND)
     public ResponseEntity<ErrorResponse> NotFound(NotFoundException notFoundException){
+        System.out.println("not found");
         ErrorResponse errorResponse = new ErrorResponse(HttpStatus.NOT_FOUND.value(), notFoundException.getType().getSimpleName(), notFoundException.getId());
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }

@@ -6,7 +6,6 @@ import frentz.daniel.hardwareservice.client.service.HardwareClient;
 import frentz.daniel.plants.entity.GardenEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,14 +25,14 @@ public class GardenConverterImpl implements GardenConverter{
     }
 
     @Override
-    public Garden toModel(GardenEntity gardenEntity, boolean fetchHardwareControllers) {
+    public Garden toGarden(GardenEntity gardenEntity) {
         Garden result = new Garden();
         result.setId(gardenEntity.getId());
         result.setName(gardenEntity.getName());
         result.setDescription(gardenEntity.getDescription());
         result.setPlants(plantConverter.toModels(gardenEntity.getPlants()));
         if (gardenEntity.getControllerId() != 0) {
-            GardenHardwareController gardenHardwareController = this.gardenHardwareControllerConverter.toModel(gardenEntity.getControllerId());
+            GardenHardwareController gardenHardwareController = this.gardenHardwareControllerConverter.toGardenHardwareController(gardenEntity.getControllerId());
             result.setHardwareController(gardenHardwareController);
         }
 
@@ -41,12 +40,12 @@ public class GardenConverterImpl implements GardenConverter{
     }
 
     @Override
-    public List<Garden> toModels(List<GardenEntity> gardenEntities) {
-        return gardenEntities.parallelStream().map((gardenEntity -> this.toModel(gardenEntity, true))).collect(Collectors.toList());
+    public List<Garden> toGardens(List<GardenEntity> gardenEntities) {
+        return gardenEntities.parallelStream().map((gardenEntity -> this.toGarden(gardenEntity))).collect(Collectors.toList());
     }
 
     @Override
-    public void fillEntity(GardenEntity gardenEntity, Garden garden) {
+    public void fillGardenEntity(GardenEntity gardenEntity, Garden garden) {
         gardenEntity.setDescription(garden.getDescription());
         gardenEntity.setName(garden.getName());
     }

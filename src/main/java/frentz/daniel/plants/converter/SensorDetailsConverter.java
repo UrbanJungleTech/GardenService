@@ -6,6 +6,6 @@ import frentz.daniel.hardwareservice.client.model.Sensor;
 import java.util.List;
 
 public interface SensorDetailsConverter {
-    SensorDetails toModel(List<Sensor> sensors);
+    SensorDetails toSensorDetails(List<Sensor> sensors);
     List<Sensor> toSensors(SensorDetails sensorDetails);
 }

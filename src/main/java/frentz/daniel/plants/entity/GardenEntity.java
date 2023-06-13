@@ -63,4 +63,8 @@ public class GardenEntity {
     public void setControllerId(long controllerId) {
         this.controllerId = controllerId;
     }
+
+    public void setPlants(List<PlantEntity> plants) {
+        this.plants = plants;
+    }
 }

@@ -37,10 +37,10 @@ public class HardwareEndpoint {
     }
 
     @PutMapping("/{hardwareId}/state")
-    public ResponseEntity<Garden> setHardwareState(@PathVariable("gardenId") long gardenId,
+    public ResponseEntity<HardwareState> setHardwareState(@PathVariable("gardenId") long gardenId,
                                                    @PathVariable("hardwareId") long hardwareId,
                                                    @RequestBody HardwareState hardwareState){
-        Garden result = this.gardenService.setHardwareState(gardenId, hardwareId, hardwareState);
+        HardwareState result = this.gardenService.setHardwareState(gardenId, hardwareId, hardwareState);
         return ResponseEntity.ok(result);
     }
 }

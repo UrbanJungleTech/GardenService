@@ -15,22 +15,19 @@ import java.util.List;
 public class GardenHardwareControllerConverterImpl implements GardenHardwareControllerConverter{
 
     private HardwareClient hardwareClient;
-    private GardenHardwareConverter gardenHardwareConverter;
     private HardwareDetailsConverter hardwareDetailsConverter;
     private SensorDetailsConverter sensorDetailsConverter;
 
     public GardenHardwareControllerConverterImpl(HardwareClient hardwareClient,
-                                                 GardenHardwareConverter gardenHardwareConverter,
                                                  HardwareDetailsConverter hardwareDetailsConverter,
                                                  SensorDetailsConverter sensorDetailsConverter){
         this.hardwareClient = hardwareClient;
-        this.gardenHardwareConverter = gardenHardwareConverter;
         this.hardwareDetailsConverter = hardwareDetailsConverter;
         this.sensorDetailsConverter = sensorDetailsConverter;
     }
 
     @Override
-    public GardenHardwareController toModel(long controllerId){
+    public GardenHardwareController toGardenHardwareController(long controllerId){
         GardenHardwareController result = new GardenHardwareController();
         HardwareController hardwareController = this.hardwareClient.getHardwareController(controllerId);
 
@@ -41,7 +38,7 @@ public class GardenHardwareControllerConverterImpl implements GardenHardwareCont
         HardwareDetails hardwareDetails = this.hardwareDetailsConverter.toHardwareDetails(hardwareController.getHardware());
         result.setHardwareDetails(hardwareDetails);
 
-        SensorDetails sensorDetails = this.sensorDetailsConverter.toModel(hardwareController.getSensors());
+        SensorDetails sensorDetails = this.sensorDetailsConverter.toSensorDetails(hardwareController.getSensors());
         result.setSensorDetails(sensorDetails);
         return result;
     }

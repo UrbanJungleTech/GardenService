@@ -2,10 +2,13 @@ package frentz.daniel.plants.service;
 
 import frentz.daniel.garden.model.Plant;
 import frentz.daniel.plants.converter.PlantConverterImpl;
+import frentz.daniel.plants.repository.GardenRepository;
 import frentz.daniel.plants.repository.PlantRepository;
 import frentz.daniel.plants.entity.PlantEntity;
 import frentz.daniel.plants.exception.NotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -15,10 +18,14 @@ public class PlantServiceImpl implements PlantService{
 
     private PlantRepository plantRepository;
     private PlantConverterImpl plantConverter;
+    private GardenRepository gardenRepository;
 
-    public PlantServiceImpl(PlantRepository plantRepository, PlantConverterImpl plantConverter){
+    public PlantServiceImpl(PlantRepository plantRepository,
+                            PlantConverterImpl plantConverter,
+                            GardenRepository gardenRepository){
         this.plantRepository = plantRepository;
         this.plantConverter = plantConverter;
+        this.gardenRepository = gardenRepository;
     }
 
     @Override
@@ -30,17 +37,15 @@ public class PlantServiceImpl implements PlantService{
     }
 
     @Override
+    @Transactional
     public Plant getPlant(long id) {
-        Optional<PlantEntity> plant = this.plantRepository.findById(id);
-        if(plant.isEmpty() == true){
-            throw new NotFoundException(Plant.class, id);
-        }
-        PlantEntity plantEntity = plant.get();
+        PlantEntity plantEntity = this.plantRepository.findById(id).orElseThrow(() -> new NotFoundException(Plant.class, id));
         Plant result = this.plantConverter.toModel(plantEntity);
         return result;
     }
 
     @Override
+    @Transactional
     public List<Plant> getPlants() {
         List<PlantEntity> plants = this.plantRepository.findAll();
         return this.plantConverter.toModels(plants);
@@ -59,8 +64,13 @@ public class PlantServiceImpl implements PlantService{
     }
 
     @Override
+    @Transactional
     public void deletePlant(long plantId) {
+        if(this.plantRepository.existsById(plantId) == false){
+            throw new NotFoundException(Plant.class, plantId);
+        }
         this.plantRepository.deleteById(plantId);
+
     }
 
     @Override

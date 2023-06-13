@@ -11,7 +11,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -44,7 +43,7 @@ class GardenServiceImplTest {
         gardenEntity.setId(1L);
         when(gardenRepository.findById(anyLong())).thenReturn(Optional.of(gardenEntity));
         Garden garden = new Garden();
-        when(gardenConverter.toModel(same(gardenEntity), anyBoolean())).thenReturn(garden);
+        when(gardenConverter.toGarden(same(gardenEntity))).thenReturn(garden);
 
         Garden result = gardenService.getGarden(1L);
 

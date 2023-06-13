@@ -2,7 +2,6 @@ package frentz.daniel.plants.service;
 
 import frentz.daniel.garden.model.*;
 import frentz.daniel.hardwareservice.client.model.*;
-import frentz.daniel.garden.model.*;
 import frentz.daniel.plants.converter.*;
 import frentz.daniel.plants.entity.GardenEntity;
 import frentz.daniel.plants.entity.PlantEntity;
@@ -53,7 +52,7 @@ public class GardenServiceImpl implements GardenService {
     @Override
     public Garden create(Garden garden) {
         GardenEntity gardenEntity = new GardenEntity();
-        this.gardenConverter.fillEntity(gardenEntity, garden);
+        this.gardenConverter.fillGardenEntity(gardenEntity, garden);
         for(Plant plant : garden.getPlants()){
             PlantEntity plantEntity = this.plantService.create(plant);
             gardenEntity.getPlants().add(plantEntity);
@@ -65,20 +64,20 @@ public class GardenServiceImpl implements GardenService {
             gardenEntity.setControllerId(hardwareController.getId());
         }
         gardenEntity = this.gardenRepository.save(gardenEntity);
-        Garden result = this.gardenConverter.toModel(gardenEntity, true);
+        Garden result = this.gardenConverter.toGarden(gardenEntity);
         return result;
     }
 
     @Override
     public Garden getGarden(long gardenId) {
         GardenEntity gardenEntity = this.gardenRepository.findById(gardenId).orElseThrow(() -> new NotFoundException(Garden.class, gardenId));
-        return this.gardenConverter.toModel(gardenEntity, true);
+        return this.gardenConverter.toGarden(gardenEntity);
     }
 
     @Override
     public List<Garden> getGardens() {
         List<GardenEntity> gardenEntities = this.gardenRepository.findAll();
-        return this.gardenConverter.toModels(gardenEntities);
+        return this.gardenConverter.toGardens(gardenEntities);
     }
 
     @Override
@@ -99,7 +98,7 @@ public class GardenServiceImpl implements GardenService {
             return plant.getId() == plantId;
         });
         this.gardenRepository.save(gardenEntity);
-        return this.gardenConverter.toModel(gardenEntity, true);
+        return this.gardenConverter.toGarden(gardenEntity);
     }
 
     @Override
@@ -115,9 +114,9 @@ public class GardenServiceImpl implements GardenService {
     }
 
     @Override
-    public Garden setHardwareState(long gardenId, long hardwareId, HardwareState hardwareState) {
-        this.hardwareService.setHardwareState(hardwareId, hardwareState);
-        return this.getGarden(gardenId);
+    public HardwareState setHardwareState(long gardenId, long hardwareId, HardwareState hardwareState) {
+        HardwareState result = this.hardwareService.setHardwareState(hardwareId, hardwareState);
+        return result;
     }
 
     @Override

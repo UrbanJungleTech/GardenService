@@ -15,7 +15,7 @@ public class HardwareServiceImpl implements HardwareService{
     }
 
     @Override
-    public Hardware setHardwareState(long hardwareId, HardwareState hardwareState) {
+    public HardwareState setHardwareState(long hardwareId, HardwareState hardwareState) {
         return this.hardwareClient.setHardwareState(hardwareId, hardwareState);
     }
 }

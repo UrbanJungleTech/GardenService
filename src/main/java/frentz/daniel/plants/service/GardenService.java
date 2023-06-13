@@ -15,7 +15,7 @@ public interface GardenService {
     Garden removePlant(long gardenId, long plantId);
     void deleteGarden(long gardenId);
     GardenHardware addHardware(long gardenId, GardenHardware hardware);
-    Garden setHardwareState(long gardenId, long hardwareId, HardwareState hardwareState);
+    HardwareState setHardwareState(long gardenId, long hardwareId, HardwareState hardwareState);
     SensorReading readAverageSensor(long gardenId, String sensorType);
     GardenSensor addSensor(long gardenId, GardenSensor sensor);
 }

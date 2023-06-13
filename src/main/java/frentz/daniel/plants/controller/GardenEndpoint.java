@@ -28,7 +28,7 @@ public class GardenEndpoint {
     }
 
     @PostMapping("/")
-    public ResponseEntity<Garden> create(@RequestBody @Valid Garden garden){
+    public ResponseEntity<Garden> create(@RequestBody Garden garden){
         Garden result = this.gardenAdditionService.addGarden(garden);
         return ResponseEntity.created(null).body(result);
     }

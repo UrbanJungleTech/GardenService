@@ -9,8 +9,6 @@ public class HardwareControllerEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private long controllerId;
-    @OneToOne
-    private HardwareDetailsEntity lightDetails;
 
     public long getId() {
         return id;
@@ -26,13 +24,5 @@ public class HardwareControllerEntity {
 
     public void setControllerId(long controllerId) {
         this.controllerId = controllerId;
-    }
-
-    public HardwareDetailsEntity getLightDetails() {
-        return lightDetails;
-    }
-
-    public void setLightDetails(HardwareDetailsEntity lightDetails) {
-        this.lightDetails = lightDetails;
     }
 }

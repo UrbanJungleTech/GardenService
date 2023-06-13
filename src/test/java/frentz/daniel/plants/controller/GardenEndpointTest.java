@@ -58,7 +58,7 @@ public class GardenEndpointTest {
      * 2. The Plant object should be returned from the GardenService.
      * 3. The ResponseEntity should have a status of 201.
      */
-    public void testAddPlant() {
+    public void testAddPlant_withValidPlant() {
         long gardenId = 1L;
         Plant plant = new Plant();
         Plant responsePlant = new Plant();

@@ -18,7 +18,7 @@ public class SensorDetailsConverterImpl implements SensorDetailsConverter{
     }
 
     @Override
-    public SensorDetails toModel(List<Sensor> sensors) {
+    public SensorDetails toSensorDetails(List<Sensor> sensors) {
         SensorDetails result = new SensorDetails();
         for(Sensor sensor : sensors){
             GardenSensor gardenSensor = this.sensorConverter.toGardenSensor(sensor);

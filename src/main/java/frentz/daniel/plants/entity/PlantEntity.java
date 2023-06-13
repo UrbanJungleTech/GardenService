@@ -15,7 +15,7 @@ public class PlantEntity {
     private String name;
     private String species;
     private LocalDateTime created;
-    @ManyToOne(cascade = {CascadeType.PERSIST})
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "garden_id")
     private GardenEntity garden;
 

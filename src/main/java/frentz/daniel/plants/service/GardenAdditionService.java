@@ -8,6 +8,5 @@ public interface GardenAdditionService {
     Garden addGarden(Garden garden);
     void addSubscriber(SseEmitter sseEmitter);
     Plant addPlant(long gardenId, Plant plant);
-    Garden removePlant(long gardenId, long plantId);
     void deleteGarden(long gardenId);
 }
