@@ -70,6 +70,6 @@ public class GardenAdditionServiceImpl implements GardenAdditionService{
     @Override
     public void deleteGarden(long gardenId) {
         this.gardenService.deleteGarden(gardenId);
-        this.sendToSubscribers(new Long(gardenId), "gardenRemoved");
+//        this.sendToSubscribers(new Long(gardenId), "gardenRemoved");
     }
 }
