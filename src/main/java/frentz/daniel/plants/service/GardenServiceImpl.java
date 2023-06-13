@@ -1,15 +1,9 @@
 package frentz.daniel.plants.service;
 
 import frentz.daniel.garden.model.*;
-import frentz.daniel.hardwareservice.client.model.HardwareController;
-import frentz.daniel.hardwareservice.client.model.HardwareState;
-import frentz.daniel.hardwareservice.client.model.Sensor;
+import frentz.daniel.hardwareservice.client.model.*;
 import frentz.daniel.garden.model.*;
-import frentz.daniel.hardwareservice.client.model.SensorReading;
-import frentz.daniel.plants.converter.GardenConverter;
-import frentz.daniel.plants.converter.GardenHardwareControllerConverter;
-import frentz.daniel.plants.converter.PlantConverter;
-import frentz.daniel.plants.converter.SensorConverter;
+import frentz.daniel.plants.converter.*;
 import frentz.daniel.plants.entity.GardenEntity;
 import frentz.daniel.plants.entity.PlantEntity;
 import frentz.daniel.plants.exception.NotFoundException;
@@ -32,6 +26,8 @@ public class GardenServiceImpl implements GardenService {
 
     private PlantConverter plantConverter;
     private SensorConverter sensorConverter;
+    private GardenHardwareConverter gardenHardwareConverter;
+
     public GardenServiceImpl(GardenRepository gardenRepository,
                              GardenConverter gardenConverter,
                              PlantService plantService,
@@ -40,7 +36,8 @@ public class GardenServiceImpl implements GardenService {
                              HardwareService hardwareService,
                              SensorService sensorService,
                              PlantConverter plantConverter,
-                             SensorConverter sensorConverter){
+                             SensorConverter sensorConverter,
+                             GardenHardwareConverter gardenHardwareConverter){
         this.gardenRepository = gardenRepository;
         this.gardenConverter = gardenConverter;
         this.plantService = plantService;
@@ -50,6 +47,7 @@ public class GardenServiceImpl implements GardenService {
         this.sensorService = sensorService;
         this.plantConverter = plantConverter;
         this.sensorConverter = sensorConverter;
+        this.gardenHardwareConverter = gardenHardwareConverter;
     }
 
     @Override
@@ -110,27 +108,10 @@ public class GardenServiceImpl implements GardenService {
     }
 
     @Override
-    public Garden addLight(long gardenId, Light light) {
+    public GardenHardware addHardware(long gardenId, GardenHardware gardenHardware) {
         GardenEntity gardenEntity = this.gardenRepository.findById(gardenId).orElseThrow(() -> new NotFoundException(Garden.class, gardenId));
-        this.hardwareControllerService.createLight(gardenEntity.getControllerId(), light);
-        gardenEntity = this.gardenRepository.getOne(gardenId);
-        return this.gardenConverter.toModel(gardenEntity, true);
-    }
-
-    @Override
-    public Garden addWater(long gardenId, Water water) {
-        GardenEntity gardenEntity = this.gardenRepository.findById(gardenId).orElseThrow(() -> new NotFoundException(Garden.class, gardenId));
-        this.hardwareControllerService.createWater(gardenEntity.getControllerId(), water);
-        gardenEntity = this.gardenRepository.getOne(gardenId);
-        return this.gardenConverter.toModel(gardenEntity, true);
-    }
-
-    @Override
-    public Garden addHeater(long gardenId, Heater heater) {
-        GardenEntity gardenEntity = this.gardenRepository.findById(gardenId).orElseThrow(() -> new NotFoundException(Garden.class, gardenId));
-        this.hardwareControllerService.createHeater(gardenEntity.getControllerId(), heater);
-        gardenEntity = this.gardenRepository.getOne(gardenId);
-        return this.gardenConverter.toModel(gardenEntity, true);
+        Hardware hardware = this.hardwareControllerService.createHardware(gardenEntity.getControllerId(), gardenHardware);
+        return this.gardenHardwareConverter.toModel(hardware);
     }
 
     @Override

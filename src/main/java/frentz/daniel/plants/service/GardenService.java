@@ -14,9 +14,7 @@ public interface GardenService {
     Plant addPlant(long gardenId, Plant plant);
     Garden removePlant(long gardenId, long plantId);
     void deleteGarden(long gardenId);
-    Garden addLight(long gardenId, Light hardware);
-    Garden addWater(long gardenId, Water water);
-    Garden addHeater(long gardenId, Heater heater);
+    GardenHardware addHardware(long gardenId, GardenHardware hardware);
     Garden setHardwareState(long gardenId, long hardwareId, HardwareState hardwareState);
     SensorReading readAverageSensor(long gardenId, String sensorType);
     GardenSensor addSensor(long gardenId, GardenSensor sensor);

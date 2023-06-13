@@ -1,9 +1,6 @@
 package frentz.daniel.plants.service;
 
-import frentz.daniel.garden.model.GardenHardwareController;
-import frentz.daniel.garden.model.Heater;
-import frentz.daniel.garden.model.Light;
-import frentz.daniel.garden.model.Water;
+import frentz.daniel.garden.model.*;
 import frentz.daniel.hardwareservice.client.model.Hardware;
 import frentz.daniel.hardwareservice.client.model.HardwareController;
 import frentz.daniel.hardwareservice.client.model.Sensor;
@@ -35,21 +32,10 @@ public class HardwareControllerServiceImpl implements HardwareControllerService{
     }
 
     @Override
-    public void createLight(Long controllerId, Light light) {
-        Hardware hardware = this.gardenHardwareConverter.toHardware(light);
-        this.hardwareClient.addHardware(controllerId, hardware);
-    }
-
-    @Override
-    public void createWater(Long controllerId, Water water) {
-        Hardware hardware = this.gardenHardwareConverter.toHardware(water);
-        this.hardwareClient.addHardware(controllerId, hardware);
-    }
-
-    @Override
-    public void createHeater(Long controllerId, Heater heater) {
-        Hardware hardware = this.gardenHardwareConverter.toHardware(heater);
-        this.hardwareClient.addHardware(controllerId, hardware);
+    public Hardware createHardware(long controllerId, GardenHardware gardenHardware) {
+        Hardware hardware = this.gardenHardwareConverter.toHardware(gardenHardware);
+        hardware = this.hardwareClient.addHardware(controllerId, hardware);
+        return hardware;
     }
 
     @Override

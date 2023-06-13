@@ -19,20 +19,20 @@ public class HardwareEndpoint {
     }
 
     @PostMapping("/light")
-    public ResponseEntity<Garden> addLight(@PathVariable("gardenId") long gardenId, @RequestBody Light light){
-        Garden result = this.gardenService.addLight(gardenId, light);
+    public ResponseEntity<Light> addLight(@PathVariable("gardenId") long gardenId, @RequestBody Light light){
+        Light result = (Light)this.gardenService.addHardware(gardenId, light);
         return ResponseEntity.created(null).body(result);
     }
 
     @PostMapping("/water")
-    public ResponseEntity<Garden> addWater(@PathVariable("gardenId") long gardenId, @RequestBody Water water){
-        Garden result = this.gardenService.addWater(gardenId, water);
+    public ResponseEntity<Water> addWater(@PathVariable("gardenId") long gardenId, @RequestBody Water water){
+        Water result = (Water)this.gardenService.addHardware(gardenId, water);
         return ResponseEntity.created(null).body(result);
     }
 
     @PostMapping("/heater")
-    public ResponseEntity<Garden> addHeater(@PathVariable("gardenId") long gardenId, @RequestBody Heater heater){
-        Garden result = this.gardenService.addHeater(gardenId, heater);
+    public ResponseEntity<Heater> addHeater(@PathVariable("gardenId") long gardenId, @RequestBody Heater heater){
+        Heater result = (Heater)this.gardenService.addHardware(gardenId, heater);
         return ResponseEntity.created(null).body(result);
     }
 

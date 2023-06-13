@@ -13,13 +13,10 @@ import java.util.List;
 
 @RequestMapping("/plants")
 public class PlantEndpoint {
-
-    private GardenService gardenService;
     private PlantService plantService;
 
-    public PlantEndpoint(PlantService plantService, GardenService gardenService){
+    public PlantEndpoint(PlantService plantService){
         this.plantService = plantService;
-        this.gardenService = gardenService;
     }
 
     @GetMapping("/{plantId}")
@@ -37,7 +34,7 @@ public class PlantEndpoint {
     @DeleteMapping("/{plantId}")
     public ResponseEntity delete(@PathVariable("plantId") long plantId){
         this.plantService.deletePlant(plantId);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
 }
