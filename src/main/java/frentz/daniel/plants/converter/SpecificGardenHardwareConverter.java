@@ -5,10 +5,9 @@ import frentz.daniel.garden.model.GardenHardware;
 
 import java.util.List;
 
-public interface SpecificGardenHardwareConverter {
+public interface SpecificGardenHardwareConverter<T extends GardenHardware> {
     String getHardwareCategory();
-    GardenHardware toModel(Hardware hardware);
-    List<GardenHardware> toModels(List<Hardware> hardwares);
-    Hardware toHardware(GardenHardware light);
+    T toSpecificHardware(Hardware hardware);
+    Hardware toHardware(T hardware);
 
 }

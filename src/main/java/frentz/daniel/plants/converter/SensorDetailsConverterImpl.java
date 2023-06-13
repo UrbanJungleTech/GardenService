@@ -22,25 +22,14 @@ public class SensorDetailsConverterImpl implements SensorDetailsConverter{
         SensorDetails result = new SensorDetails();
         for(Sensor sensor : sensors){
             GardenSensor gardenSensor = this.sensorConverter.toGardenSensor(sensor);
-            switch(sensor.getSensorType()){
-                case "moisture":
-                    result.addMoisture(gardenSensor);
-                    break;
-                case "temperature":
-                    result.addTemperature(gardenSensor);
-                    break;
-            }
+            result.addSensor(gardenSensor);
         }
         return result;
     }
 
     @Override
     public List<Sensor> toSensors(SensorDetails sensorDetails) {
-        List<Sensor> result = new ArrayList<>();
-        List<Sensor> moistureSensors = this.sensorConverter.toSensors(sensorDetails.getMoisture());
-        result.addAll(moistureSensors);
-        List<Sensor> temperatureSensors = this.sensorConverter.toSensors(sensorDetails.getTemperature());
-        result.addAll(temperatureSensors);
+        List<Sensor> result = this.sensorConverter.toSensors(sensorDetails.getSensors());
         return result;
     }
 }

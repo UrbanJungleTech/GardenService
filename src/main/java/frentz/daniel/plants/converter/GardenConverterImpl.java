@@ -42,7 +42,12 @@ public class GardenConverterImpl implements GardenConverter{
 
     @Override
     public List<Garden> toModels(List<GardenEntity> gardenEntities) {
-        List<Garden> result = new ArrayList<>();
         return gardenEntities.parallelStream().map((gardenEntity -> this.toModel(gardenEntity, true))).collect(Collectors.toList());
+    }
+
+    @Override
+    public void fillEntity(GardenEntity gardenEntity, Garden garden) {
+        gardenEntity.setDescription(garden.getDescription());
+        gardenEntity.setName(garden.getName());
     }
 }

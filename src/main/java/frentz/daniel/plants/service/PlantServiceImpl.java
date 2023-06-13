@@ -22,17 +22,10 @@ public class PlantServiceImpl implements PlantService{
     }
 
     @Override
-    public void createPlant(Plant plant) {
-        plant.setCreated(LocalDateTime.now());
-    }
-
-    @Override
     public PlantEntity create(Plant plant) {
-        this.createPlant(plant);
+        plant.setCreated(LocalDateTime.now());
         PlantEntity plantEntity = new PlantEntity();
-        plantEntity.setName(plant.getName());
-        plantEntity.setSpecies(plant.getSpecies());
-        plantEntity.setCreated(LocalDateTime.now());
+        this.plantConverter.fillEntity(plantEntity, plant);
         return plantEntity;
     }
 
@@ -43,10 +36,7 @@ public class PlantServiceImpl implements PlantService{
             throw new NotFoundException(Plant.class, id);
         }
         PlantEntity plantEntity = plant.get();
-        Plant result = new Plant();
-        result.setGardenId(plantEntity.getGarden().getId());
-        result.setCreated(plantEntity.getCreated());
-        result.setName(plantEntity.getName());
+        Plant result = this.plantConverter.toModel(plantEntity);
         return result;
     }
 

@@ -1,5 +1,6 @@
 package frentz.daniel.plants.controller;
 
+import frentz.daniel.hardwareservice.client.model.SensorReading;
 import frentz.daniel.plants.service.GardenService;
 import frentz.daniel.plants.service.SensorService;
 import org.springframework.http.ResponseEntity;
@@ -21,8 +22,8 @@ public class SensorEndpoint {
     }
 
     @GetMapping("/{sensorId}/reading")
-    public ResponseEntity<Double> readSensor(@PathVariable("sensorId") long sensorId){
-        double result = this.sensorService.readSensor(sensorId);
+    public ResponseEntity<SensorReading> readSensor(@PathVariable("sensorId") long sensorId){
+        SensorReading result = this.sensorService.readSensor(sensorId);
         return ResponseEntity.ok(result);
     }
 }

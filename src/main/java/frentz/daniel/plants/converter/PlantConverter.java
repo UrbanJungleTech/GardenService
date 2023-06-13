@@ -8,4 +8,5 @@ import java.util.List;
 public interface PlantConverter{
     Plant toModel(PlantEntity plantEntity);
     List<Plant> toModels(List<PlantEntity> plants);
+    void fillEntity(PlantEntity plantEntity, Plant plant);
 }

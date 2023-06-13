@@ -38,7 +38,7 @@ public class GardenHardwareControllerConverterImpl implements GardenHardwareCont
         result.setSerialNumber(hardwareController.getSerialNumber());
         result.setId(hardwareController.getId());
 
-        HardwareDetails hardwareDetails = this.hardwareDetailsConverter.toModel(hardwareController.getHardware());
+        HardwareDetails hardwareDetails = this.hardwareDetailsConverter.toHardwareDetails(hardwareController.getHardware());
         result.setHardwareDetails(hardwareDetails);
 
         SensorDetails sensorDetails = this.sensorDetailsConverter.toModel(hardwareController.getSensors());

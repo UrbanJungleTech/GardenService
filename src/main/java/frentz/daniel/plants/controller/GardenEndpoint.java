@@ -1,8 +1,10 @@
 package frentz.daniel.plants.controller;
 
 import frentz.daniel.garden.model.Garden;
+import frentz.daniel.garden.model.GardenSensor;
 import frentz.daniel.garden.model.Plant;
 import frentz.daniel.hardwareservice.client.model.Sensor;
+import frentz.daniel.hardwareservice.client.model.SensorReading;
 import frentz.daniel.plants.service.GardenAdditionService;
 import frentz.daniel.plants.service.GardenService;
 import org.springframework.http.ResponseEntity;
@@ -26,30 +28,33 @@ public class GardenEndpoint {
     }
 
     @PostMapping("/")
-    public Garden create(@RequestBody @Valid Garden garden){
-        return this.gardenAdditionService.addGarden(garden);
+    public ResponseEntity<Garden> create(@RequestBody @Valid Garden garden){
+        Garden result = this.gardenAdditionService.addGarden(garden);
+        return ResponseEntity.created(null).body(result);
     }
 
     @PostMapping("/{gardenId}/plants/")
-    public ResponseEntity<Garden> addPlant(@RequestBody Plant plant, @PathVariable long gardenId){
-        this.gardenAdditionService.addPlant(gardenId, plant);
-        return ResponseEntity.created(null).body(this.gardenService.getGarden(gardenId));
+    public ResponseEntity<Plant> addPlant(@RequestBody Plant plant, @PathVariable long gardenId){
+        Plant result = this.gardenAdditionService.addPlant(gardenId, plant);
+        return ResponseEntity.created(null).body(result);
     }
 
     @GetMapping("/")
-    public List<Garden> getGardens(){
-        return this.gardenService.getGardens();
+    public ResponseEntity<List<Garden>> getGardens(){
+        List<Garden> result = this.gardenService.getGardens();
+        return ResponseEntity.ok(result);
     }
 
     @GetMapping("/{gardenId}")
-    public Garden getGarden(@PathVariable long gardenId){
-        return this.gardenService.getGarden(gardenId);
+    public ResponseEntity<Garden> getGarden(@PathVariable long gardenId){
+        Garden result = this.gardenService.getGarden(gardenId);
+        return ResponseEntity.ok(result);
     }
 
     @DeleteMapping("/{gardenId}")
     public ResponseEntity deleteGarden(@PathVariable long gardenId){
         this.gardenAdditionService.deleteGarden(gardenId);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/realtime")
@@ -60,14 +65,14 @@ public class GardenEndpoint {
     }
 
     @PostMapping("/{gardenId}/hardwareController/sensor")
-    public ResponseEntity<Garden> addSensor(@PathVariable long gardenId, @RequestBody Sensor sensor){
-        Garden result = this.gardenService.addSensor(gardenId, sensor);
+    public ResponseEntity<GardenSensor> addSensor(@PathVariable long gardenId, @RequestBody GardenSensor sensor){
+        GardenSensor result = this.gardenService.addSensor(gardenId, sensor);
         return ResponseEntity.created(null).body(result);
     }
 
     @GetMapping("/{gardenId}/averagesensor/{sensorType}")
-    public ResponseEntity<Double> readAverageSensor(@PathVariable("gardenId") long gardenId, @PathVariable("sensorType")String sensorType){
-        double result = this.gardenService.readAverageSensor(gardenId, sensorType);
+    public ResponseEntity<SensorReading> readAverageSensor(@PathVariable("gardenId") long gardenId, @PathVariable("sensorType")String sensorType){
+        SensorReading result = this.gardenService.readAverageSensor(gardenId, sensorType);
         return ResponseEntity.ok(result);
     }
 }

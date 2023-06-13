@@ -8,4 +8,5 @@ import java.util.List;
 public interface GardenConverter {
     Garden toModel(GardenEntity gardenEntity, boolean fetchHardwareControllers);
     List<Garden> toModels(List<GardenEntity> gardenEntities);
+    void fillEntity(GardenEntity gardenEntity, Garden garden);
 }

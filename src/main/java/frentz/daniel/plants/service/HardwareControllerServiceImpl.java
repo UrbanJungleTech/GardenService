@@ -53,8 +53,9 @@ public class HardwareControllerServiceImpl implements HardwareControllerService{
     }
 
     @Override
-    public void createSensor(long controllerId, Sensor sensor) {
-        this.hardwareClient.addSensor(controllerId, sensor);
+    public Sensor createSensor(long controllerId, Sensor sensor) {
+        Sensor result = this.hardwareClient.addSensor(controllerId, sensor);
+        return result;
     }
 
 }

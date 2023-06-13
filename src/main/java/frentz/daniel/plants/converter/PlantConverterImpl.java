@@ -29,4 +29,11 @@ public class PlantConverterImpl implements PlantConverter{
     public List<Plant> toModels(List<PlantEntity> plants) {
         return plants.parallelStream().map((plantEntity -> this.toModel(plantEntity))).collect(Collectors.toList());
     }
+
+    @Override
+    public void fillEntity(PlantEntity plantEntity, Plant plant) {
+        plantEntity.setName(plant.getName());
+        plantEntity.setSpecies(plant.getSpecies());
+        plantEntity.setCreated(plant.getCreated());
+    }
 }

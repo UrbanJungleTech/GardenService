@@ -6,7 +6,6 @@ import frentz.daniel.plants.entity.PlantEntity;
 import java.util.List;
 
 public interface PlantService {
-    void createPlant(Plant plant);
     PlantEntity create(Plant plant);
     Plant getPlant(long id);
     List<Plant> getPlants();

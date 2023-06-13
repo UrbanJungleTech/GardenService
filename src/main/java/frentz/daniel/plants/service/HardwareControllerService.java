@@ -12,5 +12,5 @@ public interface HardwareControllerService {
     void createLight(Long controllerId, Light light);
     void createWater(Long controllerId, Water water);
     void createHeater(Long controllerId, Heater heater);
-    void createSensor(long controllerId, Sensor sensor);
+    Sensor createSensor(long controllerId, Sensor sensor);
 }

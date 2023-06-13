@@ -54,9 +54,10 @@ public class GardenAdditionServiceImpl implements GardenAdditionService{
     }
 
     @Override
-    public void addPlant(long gardenId, Plant plant) {
-        Garden garden = this.gardenService.addPlant(gardenId, plant);
-        this.sendToSubscribers(garden, "plantAdded");
+    public Plant addPlant(long gardenId, Plant plant) {
+        Plant result = this.gardenService.addPlant(gardenId, plant);
+        //this.sendToSubscribers(garden, "plantAdded");
+        return result;
     }
 
     @Override

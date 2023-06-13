@@ -38,7 +38,7 @@ public class GardenHardwareConverterImpl implements GardenHardwareConverter{
 
     @Override
     public GardenHardware toModel(Hardware hardware) {
-        GardenHardware result = this.gardenHardwareConverters.get(hardware.getType()).toModel(hardware);
+        GardenHardware result = this.gardenHardwareConverters.get(hardware.getType()).toSpecificHardware(hardware);
         result.setHardwareCategory(hardware.getType());
         this.fillGardenHardware(result, hardware);
         return result;

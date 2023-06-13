@@ -1,7 +1,9 @@
 package frentz.daniel.plants.service;
 
 
+import frentz.daniel.hardwareservice.client.model.SensorReading;
+
 public interface SensorService {
-    double readSensor(long sensorId);
-    double readAverageSensor(long gardenId,String sensorType);
+    SensorReading readSensor(long sensorId);
+    SensorReading readAverageSensor(long gardenId, String sensorType);
 }

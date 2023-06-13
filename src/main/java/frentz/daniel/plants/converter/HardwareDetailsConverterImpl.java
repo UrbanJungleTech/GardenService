@@ -17,23 +17,11 @@ public class HardwareDetailsConverterImpl implements HardwareDetailsConverter{
     }
 
     @Override
-    public HardwareDetails toModel(List<Hardware> hardwares) {
-
+    public HardwareDetails toHardwareDetails(List<Hardware> hardwares) {
         HardwareDetails result = new HardwareDetails();
-
         for(Hardware hardware : hardwares){
             GardenHardware gardenHardware = this.gardenHardwareConverter.toModel(hardware);
-            switch(hardware.getType()){
-                case "LIGHT":
-                    result.addLight((Light)gardenHardware);
-                    break;
-                case "WATER":
-                    result.addWater((Water)gardenHardware);
-                    break;
-                case "HEATER":
-                    result.addHeater((Heater)gardenHardware);
-                    break;
-            }
+            result.addHardware(gardenHardware);
         }
         return result;
     }
@@ -41,16 +29,8 @@ public class HardwareDetailsConverterImpl implements HardwareDetailsConverter{
     @Override
     public List<Hardware> toHardware(HardwareDetails hardwareDetails) {
         List<Hardware> result = new ArrayList<>();
-        for(Light light : hardwareDetails.getLights()){
-            Hardware hardware = this.gardenHardwareConverter.toHardware(light);
-            result.add(hardware);
-        }
-        for(Heater heater : hardwareDetails.getHeaters()){
-            Hardware hardware = this.gardenHardwareConverter.toHardware(heater);
-            result.add(hardware);
-        }
-        for(Water water : hardwareDetails.getWaters()){
-            Hardware hardware = this.gardenHardwareConverter.toHardware(water);
+        for(GardenHardware gardenHardware : hardwareDetails.getHardware()){
+            Hardware hardware = this.gardenHardwareConverter.toHardware(gardenHardware);
             result.add(hardware);
         }
         return result;
