@@ -1,3 +1,5 @@
+# Please note that this API is under heavy development due to modifications made in the hardware service. It should not be considered stable at the moment
+
 # Introduction
 
 Welcome to the Garden Service repository of the Plant Project, where software meets soil and seeds. This repository encompasses the components that allow users to catalog, track, and manage their plants, providing a digital reflection of their real-world garden.
@@ -64,4 +66,74 @@ After a successful build, you can run the Garden Service using the following com
 
 ```bash
 java -jar target/garden-0.0.1-SNAPSHOT.jar
+```
+
+Additionally you will need to ensure that the hardware service is also running, you can find more details here: https://github.com/UrbanJungleTech/HardwareService
+
+## Usage examples
+
+The Garden Service API allows you to create and manage your gardens along with their associated hardware controllers and devices. Here are some examples of how you can use this API.
+Create a Garden
+
+To create a garden, you will need to send a POST request to the /garden/ endpoint.
+
+```http
+POST /garden/
+```
+
+The body of the request should contain the name and description of the garden. Here's an example:
+
+```json
+{
+    "name": "Garden 1",
+    "description": "This is the description"
+}
+```
+
+Create a Garden with a Hardware Controller and Light
+
+You can also create a garden with an associated hardware controller and light device in a single operation. This is done by including hardwareController and hardwareDetails objects in the body of your POST request to /garden/.
+
+```http
+POST /garden/
+```
+Here's an example:
+
+```json
+{
+    "name": "Garden 1",
+    "description": "This is the description of the garden",
+    "hardwareController": {
+        "name": "Garden Controller",
+        "serialNumber": "1234",
+        "hardwareDetails": {
+            "lights": [
+                {
+                    "name": "First Light",
+                    "port": 1,
+                    "power": 10,
+                    "colour": "red"
+                }
+            ]
+        }
+    }
+}
+```
+Add a Light to an Existing Garden
+
+To add a light to an existing garden, you will need to send a POST request to the /garden/{gardenId}/hardware/light endpoint, replacing {gardenId} with the ID of the garden you want to add the light to.
+
+```http
+POST /garden/{{gardenId}}/hardware/light
+```
+
+The body of the request should contain the details of the light:
+
+```json
+{
+    "port":1,
+    "power":"10",
+    "colour":"red",
+    "name":"First Red Light"
+}
 ```
